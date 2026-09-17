@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free AI Image Generator</title>
+
+  <script src="https://js.puter.com/v2/"></script>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #111827;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    textarea {
+      width: 100%;
+      max-width: 600px;
+      height: 120px;
+      padding: 15px;
+      border-radius: 12px;
+      border: 0;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin: 15px;
+      padding: 14px 25px;
+      border: 0;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+    }
+
+    #result img {
+      max-width: 100%;
+      margin-top: 20px;
+      border-radius: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🎨 AI Image Generator</h1>
+
+  <textarea id="prompt"
+    placeholder="Example: A cute baby monkey dancing in a colorful garden"></textarea>
+
+  <br>
+
+  <button onclick="generateImage()">Generate Image</button>
+
+  <div id="status"></div>
+  <div id="result"></div>
+
+  <script>
+    async function generateImage() {
+
+      const prompt = document.getElementById("prompt").value.trim();
+      const status = document.getElementById("status");
+      const result = document.getElementById("result");
+
+      if (!prompt) {
+        alert("Please enter a prompt");
+        return;
+      }
+
+      status.innerText = "⏳ Generating image...";
+      result.innerHTML = "";
+
+      try {
+
+        const image = await puter.ai.txt2img(prompt);
+
+        result.appendChild(image);
+
+        status.innerText = "✅ Image generated!";
+
+      } catch (error) {
+
+        status.innerText = "❌ Error: " + error.message;
+
+      }
+    }
+  </script>
+
+</body>
+</html>
